@@ -1,0 +1,58 @@
+// This dataset contains restaurant information. 
+// =============================================
+// id - unique value to identify records identify.
+// address - object type contains the details of the address.    
+// borough - where the restaurant is located.
+// cuisine - restaurant type.
+// grades - grade of the restaurant.
+// name - restaurant name.
+// restaurant_id - unique id for restaurants.
+// ============================================
+
+// 1. Find the restaurants located in Brooklyn.
+{borough: "Brooklyn"} 
+
+
+// 2. Find the restaurants located in zipcode: "11224".
+{"address.zipcode": "11224"}
+
+
+// 3. Find the restaurants located in zipcode: "11224" which servers cuisine "Italian".
+// Using the implicit AND method.
+{"address.zipcode": "11224", "cuisine": "Italian"} 
+
+
+// 4. Find the restaurants located in zipcode: "11224" which servers cuisine "Italian".
+// Using the explicit AND method.
+{$and:[{"address.zipcode": "11224"}, {"cuisine": "Italian"}]}
+
+
+// 5. Find the restaurants which the borough does not starts from letter 'S'.
+// Using the $not  
+{borough: { $not: /^S.*/ } }
+
+
+// 6. Find the restaurants are not located in "Manhattan" or the cuisine is not "Italian".
+// Using the $nor 
+{ $nor: [{ borough: "Manhattan" }, { cuisine: "Italian" }] }
+
+
+// 7. Find the restaurants those have more than 6 beds.
+// Using the $gt 
+{"grades.score": { "$gt": 3 }}
+
+
+// 8. Find the restaurants where the borough is in "Brooklyn" or "Manhattan".
+// Using the $in
+{"borough": {$in: ["Brooklyn", "Manhattan"]}}
+
+
+// 9. Find the restaurants where the borough is neither in "Brooklyn" nor "Manhattan".
+// Using the $nin
+{"borough": {$nin: ["Brooklyn", "Manhattan"]}}
+
+
+
+// 10. Find the restaurants located in Brooklyn where the grades are greater than or equal 5.
+// Using the $gte
+{"borough": "Brooklyn" , "grades.score": { "$gte": 5 }}
